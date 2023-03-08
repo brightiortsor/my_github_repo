@@ -1,25 +1,40 @@
 <template>
   <div class="repos-container">
-    <div class="repos">
+    <img
+      v-if="loading"
+      src="../assets/spinloader.gif"
+      alt="Loading Spinner"
+      class="loading-spinner"
+    />
+    <div class="repos" :style="{ opacity: loading ? 0.5 : 1 }" v-else>
       <h1>My GitHub Repositories</h1>
       <ul>
         <li v-for="repo in paginatedRepositories" :key="repo.id">
-          {{ repo.name }}
+          <router-link :to="{ name: 'repo', params: { id: repo.id } }">{{
+            repo.name
+          }}</router-link>
         </li>
       </ul>
       <div class="btn-container">
-        <button @click="currentPage--" :disabled="currentPage === 1">
+        <button
+          @click="currentPage--"
+          :disabled="currentPage === 1"
+          :class="{ disabled: currentPage === 1 }"
+        >
           Prev
         </button>
         <span>Page {{ currentPage }} of {{ totalPages }}</span>
-        <button @click="currentPage++" :disabled="currentPage === totalPages">
+        <button
+          @click="currentPage++"
+          :disabled="currentPage === totalPages"
+          :class="{ disabled: currentPage === totalPages }"
+        >
           Next
         </button>
       </div>
     </div>
   </div>
 </template>
-
 <script>
 import axios from "axios";
 
@@ -30,10 +45,12 @@ export default {
       currentPage: 1,
       perPage: 5,
       totalPages: 0,
+      loading: true,
     };
   },
   methods: {
     async fetchRepositories() {
+      this.loading = true;
       try {
         const response = await axios.get(
           "https://api.github.com/users/brightiortsor/repos"
@@ -42,6 +59,8 @@ export default {
         this.totalPages = Math.ceil(this.repositories.length / this.perPage);
       } catch (error) {
         console.error(error);
+      } finally {
+        this.loading = false;
       }
     },
   },
@@ -66,9 +85,32 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
 }
+
+.repos {
+  width: 50%;
+  margin: 0 auto;
+  padding: 1rem;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+}
+.repos.loading {
+  opacity: 0.5;
+}
+.loading-spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 h1 {
-  color: #e25e5e;
+  color: #b30000;
+  text-align: center;
 }
 
 .repos {
@@ -98,8 +140,15 @@ li:hover {
   margin-top: 1rem;
 }
 
+.btn-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+}
+
 button {
-  background-color: #b30000;
+  background-color: #e01f1f;
   color: #fff;
   border: none;
   padding: 0.5rem 2rem;
@@ -112,10 +161,25 @@ button:hover {
   background-color: #cc0000;
 }
 
-.btn-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 2rem;
+.disabled {
+  color: grey;
+  cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .repos {
+    width: 80%;
+  }
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  li {
+    font-size: 1rem;
+  }
+
+  button {
+    font-size: 1rem;
+  }
 }
 </style>
