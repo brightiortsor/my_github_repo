@@ -16,9 +16,7 @@
 <script>
 export default {
   data() {
-    return {
-      repository: {},
-    };
+    return { repository: {} };
   },
   async created() {
     const response = await fetch(

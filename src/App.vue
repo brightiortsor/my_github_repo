@@ -1,6 +1,7 @@
 <template>
   <div class="app">
     <AllRepos />
+    <router-view />
   </div>
 </template>
 

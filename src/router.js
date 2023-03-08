@@ -1,17 +1,30 @@
-import VueRouter from "vue-router";
+import Vue from "vue";
+import Router from "vue-router";
 import AllRepos from "./components/AllRepos.vue";
 import SingleRepo from "./components/SingleRepo.vue";
 import NotFound from "./components/NotFound.vue";
 
-const routes = [
-  { path: "////", component: AllRepos },
-  { path: "////repo/:id", name: "repo", component: SingleRepo, props: true },
-  { path: "*", component: NotFound },
-];
+Vue.use(Router);
 
-const router = new VueRouter({
+export default new Router({
   mode: "history",
-  routes,
+  routes: [
+    {
+      path: "/all-repos",
+      name: "all-repos",
+      component: AllRepos,
+      children: [
+        {
+          path: ":id",
+          name: "single-repo",
+          component: SingleRepo,
+        },
+      ],
+    },
+    {
+      path: "*",
+      name: "not-found",
+      component: NotFound,
+    },
+  ],
 });
-
-export default router;
