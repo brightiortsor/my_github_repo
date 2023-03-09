@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import NotFound from "@/views/NotFound.vue";
+import NotFound from "@/components/NotFound.vue";
 import AllReposVue from "@/components/AllRepos.vue";
 import SingleRepoVue from "@/components/SingleRepo.vue";
 

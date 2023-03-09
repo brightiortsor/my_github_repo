@@ -1,19 +1,3 @@
-<!-- <template>
-  <div class="app">
-    <AllRepos />
-  </div>
-</template>
-
-<script>
-import AllRepos from "./components/AllRepos.vue";
-
-export default {
-  name: "App",
-  components: {
-    AllRepos,
-  },
-};
-</script> -->
 <template>
   <div id="app">
     <router-view />

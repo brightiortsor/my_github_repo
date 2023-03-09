@@ -62,6 +62,7 @@ export default {
         const response = await axios.get(
           "https://api.github.com/users/brightiortsor/repos"
         );
+        console.log(response);
         this.repositories = response.data;
         this.totalPages = Math.ceil(this.repositories.length / this.perPage);
       } catch (error) {
@@ -161,7 +162,7 @@ li:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 2rem;
+  margin: 2rem 0 1.5rem 0;
 }
 
 button {

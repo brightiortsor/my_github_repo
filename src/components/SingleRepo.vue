@@ -6,18 +6,28 @@
       alt="Loading Spinner"
       class="loading-spinner"
     />
-    <div class="repo" v-else>
+    <div class="repos" v-else>
       <h1 style="text-transform: uppercase">{{ repository.name }}</h1>
-      <p>{{ repository.description }}</p>
-      <p><strong>Language:</strong> {{ repository.language }}</p>
-      <p><strong>Created:</strong> {{ repository.created_at }}</p>
-      <p><strong>Last Updated:</strong> {{ repository.updated_at }}</p>
-      <p>
-        <strong>URL:</strong>
-        <a :href="repository.html_url">{{ repository.html_url }}</a>
+      <p class="desc">{{ repository.description }}</p>
+      <hr class="rule" />
+      <p class="rep"><strong>Language:</strong> {{ repository.language }}</p>
+      <p class="rep">
+        <strong>Visibility:</strong> {{ repository.visibility }}
       </p>
-      <p><strong>Stars:</strong> {{ repository.stargazers_count }}</p>
-      <button @click="redirectToHome" class="btn">Back Home</button>
+      <p class="rep"><strong>Created:</strong> {{ repository.created_at }}</p>
+      <p class="rep">
+        <strong>Last Updated:</strong> {{ repository.updated_at }}
+      </p>
+      <p class="rep url">
+        <strong>URL: </strong>
+        <a class="links" :href="repository.html_url">
+          {{ repository.html_url }}</a
+        >
+      </p>
+      <p class="rep">
+        <strong>Stars:</strong> {{ repository.stargazers_count }}
+      </p>
+      <button @click="redirectToHome" class="btn">Back</button>
     </div>
   </div>
 </template>
@@ -30,7 +40,7 @@ export default {
     };
   },
   async created() {
-    await new Promise((resolve) => setTimeout(resolve, 1000)); // wait for 3 seconds
+    await new Promise((resolve) => setTimeout(resolve, 1000));
     const response = await fetch(
       `https://api.github.com/repositories/${this.$route.params.id}`
     );
@@ -51,14 +61,37 @@ export default {
 
 <style>
 .btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border: none;
   color: white;
-  padding: 15px 32px;
-  text-align: center;
+  padding: 10px 16px;
   text-decoration: none;
-  display: inline-block;
   font-size: 16px;
-  margin: 4px 2px;
+  margin: 4px auto;
   cursor: pointer;
+}
+
+.rep {
+  font-size: 1.2rem;
+  margin: 1.5rem 0;
+}
+
+.desc {
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.rule {
+  border: 0;
+  height: 1px;
+  background-image: linear-gradient(to right, #c3cfe2, #e1e6ee);
+}
+
+.url {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 </style>
