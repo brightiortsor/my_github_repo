@@ -1,7 +1,6 @@
-<template>
+<!-- <template>
   <div class="app">
     <AllRepos />
-    <router-view />
   </div>
 </template>
 
@@ -13,6 +12,17 @@ export default {
   components: {
     AllRepos,
   },
+};
+</script> -->
+<template>
+  <div id="app">
+    <router-view />
+  </div>
+</template>
+
+<script>
+export default {
+  name: "App",
 };
 </script>
 

@@ -1,81 +1,3 @@
-<!-- <template>
-  <div class="repos-container">
-    <img
-      v-if="loading"
-      src="../assets/spinloader.gif"
-      alt="Loading Spinner"
-      class="loading-spinner"
-    />
-    <div class="repos" :style="{ opacity: loading ? 0.5 : 1 }" v-else>
-      <h1>Bright's GitHub Repositories</h1>
-      <ul>
-        <li v-for="repo in paginatedRepositories" :key="repo.id">
-          <router-link :to="{ name: 'repo', params: { id: repo.id } }">{{
-            repo.name
-          }}</router-link>
-        </li>
-      </ul>
-      <div class="btn-container">
-        <button
-          @click="currentPage--"
-          :disabled="currentPage === 1"
-          :class="{ disabled: currentPage === 1 }"
-        >
-          Prev
-        </button>
-        <span>Page {{ currentPage }} of {{ totalPages }}</span>
-        <button
-          @click="currentPage++"
-          :disabled="currentPage === totalPages"
-          :class="{ disabled: currentPage === totalPages }"
-        >
-          Next
-        </button>
-      </div>
-    </div>
-  </div>
-</template>
-<script>
-import axios from "axios";
-
-export default {
-  data() {
-    return {
-      repositories: [],
-      currentPage: 1,
-      perPage: 5,
-      totalPages: 0,
-      loading: true,
-    };
-  },
-  methods: {
-    async fetchRepositories() {
-      this.loading = true;
-      try {
-        const response = await axios.get(
-          "https://api.github.com/users/brightiortsor/repos"
-        );
-        this.repositories = response.data;
-        this.totalPages = Math.ceil(this.repositories.length / this.perPage);
-      } catch (error) {
-        console.error(error);
-      } finally {
-        this.loading = false;
-      }
-    },
-  },
-  computed: {
-    paginatedRepositories() {
-      const startIndex = (this.currentPage - 1) * this.perPage;
-      const endIndex = startIndex + this.perPage;
-      return this.repositories.slice(startIndex, endIndex);
-    },
-  },
-  mounted() {
-    this.fetchRepositories();
-  },
-};
-</script> -->
 <template>
   <div class="repos-container">
     <img
@@ -87,10 +9,16 @@ export default {
     <div class="repos" :style="{ opacity: loading ? 0.5 : 1 }" v-else>
       <h1>Bright's GitHub Repositories</h1>
       <ul>
-        <li v-for="repo in paginatedRepositories" :key="repo.id">
-          <router-link :to="{ name: 'single-repo', params: { id: repo.id } }">{{
-            repo.name
-          }}</router-link>
+        <li
+          style="text-transform: uppercase"
+          v-for="repo in paginatedRepositories"
+          :key="repo.id"
+        >
+          <router-link
+            class="links"
+            :to="{ name: 'single-repo', params: { id: repo.id } }"
+            >{{ repo.name }}</router-link
+          >
         </li>
       </ul>
       <div class="btn-container">
@@ -207,7 +135,6 @@ li {
   padding: 1rem;
   border: 1px solid #ccc;
   border-radius: 10px;
-  cursor: pointer;
 }
 
 li:hover {
@@ -218,6 +145,16 @@ li:hover {
   display: flex;
   justify-content: center;
   margin-top: 1rem;
+}
+
+.links {
+  color: #504b4b;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.links:visited {
+  color: #867c7c;
 }
 
 .btn-container {
@@ -238,7 +175,7 @@ button {
 }
 
 button:hover {
-  background-color: #cc0000;
+  background-color: #d85d5d;
 }
 
 .disabled {
