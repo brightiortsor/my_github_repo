@@ -1,4 +1,5 @@
 <template>
+  <AppLayout />
   <div class="repos-container">
     <img
       v-if="loading"
@@ -44,8 +45,13 @@
 
 <script>
 import axios from "axios";
+import AppLayout from "./AppLayout.vue";
 
 export default {
+  name: "AllRepos",
+  components: {
+    AppLayout,
+  },
   data() {
     return {
       repositories: [],
@@ -87,7 +93,7 @@ export default {
 
 <style>
 .repos-container {
-  margin: -1rem -1rem 0;
+  margin: 0 -1rem -1rem 0;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -98,13 +104,14 @@ export default {
 
 .repos {
   width: 50%;
-  margin: 0 auto;
+  margin: -3rem auto 0 auto;
   padding: 1rem;
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
   opacity: 1;
   transition: opacity 0.5s ease-in-out;
+  color: #504b4b;
 }
 .repos.loading {
   opacity: 0.5;
@@ -121,13 +128,12 @@ h1 {
   text-align: center;
 }
 
-.repos {
-  color: #504b4b;
-}
 ul {
   list-style: none;
   padding: 0;
   margin: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 li {

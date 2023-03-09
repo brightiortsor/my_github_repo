@@ -2,11 +2,12 @@ import { createRouter, createWebHistory } from "vue-router";
 import NotFound from "@/components/NotFound.vue";
 import AllReposVue from "@/components/AllRepos.vue";
 import SingleRepoVue from "@/components/SingleRepo.vue";
+import HomePage from "@/components/HomePage.vue";
 
 const routes = [
   {
     path: "/",
-    redirect: "/repositories",
+    component: HomePage,
   },
   {
     path: "/repositories",
