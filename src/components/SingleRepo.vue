@@ -7,7 +7,7 @@
       class="loading-spinner"
     />
     <div class="repos" v-else>
-      <h1 style="text-transform: uppercase">{{ repository.name }}</h1>
+      <h1>{{ repository.name }}</h1>
       <p class="desc">{{ repository.description }}</p>
       <hr class="rule" />
       <p class="rep"><strong>Language:</strong> {{ repository.language }}</p>
@@ -50,16 +50,20 @@ export default {
   },
   methods: {
     redirectToHome() {
-      this.$router.push("/");
+      this.$router.push("/repositories");
     },
   },
-  mounted() {
-    document.body.style.backgroundColor = "lightblue";
-  },
+  mounted() {},
 };
 </script>
 
 <style>
+.repos h1 {
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 1.5rem;
+  margin: 1rem 0;
+}
 .btn {
   display: flex;
   justify-content: center;
