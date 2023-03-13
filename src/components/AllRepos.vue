@@ -68,7 +68,6 @@ export default {
         const response = await axios.get(
           "https://api.github.com/users/brightiortsor/repos"
         );
-        console.log(response);
         this.repositories = response.data;
         this.totalPages = Math.ceil(this.repositories.length / this.perPage);
       } catch (error) {
