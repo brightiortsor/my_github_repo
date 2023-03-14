@@ -25,7 +25,7 @@ export default {
   display: flex;
   flex-direction: column;
   background-color: black;
-  height: 100vh;
+  height: 90vh;
   margin: 0 -1rem -1rem;
   padding: 0;
 }
@@ -40,13 +40,12 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 1rem;
 }
 .link {
-  color: #0c6e42;
+  color: #fff;
   font-size: 2.5rem;
-  margin-top: 3rem;
-  border: 1px solid #0c6e42;
+  margin-top: 2rem;
+  border: 1px solid #e95252;
   width: 12rem;
   text-decoration: none;
   text-align: center;
@@ -55,7 +54,7 @@ export default {
 }
 
 .link:hover {
-  background-color: #0c6e42;
+  background-color: #e95252;
   color: white;
 }
 </style>

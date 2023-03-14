@@ -1,14 +1,9 @@
 <template>
   <AppLayout />
   <div class="repos-container">
-    <img
-      v-if="loading"
-      src="../assets/spinloader.gif"
-      alt="Loading Spinner"
-      class="loading-spinner"
-    />
+    <span class="loader" v-if="loading"></span>
     <div class="repos" :style="{ opacity: loading ? 0.5 : 1 }" v-else>
-      <h1>Bright's GitHub Repositories</h1>
+      <h1>Bright's Repositories</h1>
       <ul>
         <li
           style="text-transform: uppercase"
@@ -65,6 +60,7 @@ export default {
     async fetchRepositories() {
       this.loading = true;
       try {
+        await new Promise((resolve) => setTimeout(resolve, 1000));
         const response = await axios.get(
           "https://api.github.com/users/brightiortsor/repos"
         );
@@ -112,14 +108,52 @@ export default {
   transition: opacity 0.5s ease-in-out;
   color: #504b4b;
 }
-.repos.loading {
-  opacity: 0.5;
+.loader {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  position: relative;
+  animation: rotate 1s linear infinite;
 }
-.loading-spinner {
+.loader::before,
+.loader::after {
+  content: "";
+  box-sizing: border-box;
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  inset: 0px;
+  border-radius: 50%;
+  border: 5px solid #a79595;
+  animation: prixClipFix 2s linear infinite;
+}
+.loader::after {
+  border-color: #ff3d00;
+  animation: prixClipFix 2s linear infinite, rotate 0.5s linear infinite reverse;
+  inset: 6px;
+}
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes prixClipFix {
+  0% {
+    clip-path: polygon(50% 50%, 0 0, 0 0, 0 0, 0 0, 0 0);
+  }
+  25% {
+    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 0, 100% 0, 100% 0);
+  }
+  50% {
+    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 100% 100%, 100% 100%);
+  }
+  75% {
+    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 0 100%, 0 100%);
+  }
+  100% {
+    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 0 100%, 0 0);
+  }
 }
 
 h1 {

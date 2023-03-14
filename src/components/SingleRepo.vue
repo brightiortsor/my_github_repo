@@ -1,11 +1,6 @@
 <template>
   <div class="repos-container">
-    <img
-      v-if="loading"
-      src="../assets/spinloader.gif"
-      alt="Loading Spinner"
-      class="loading-spinner"
-    />
+    <span class="loader" v-if="loading"></span>
     <div class="repos" v-else>
       <h1>{{ repository.name }}</h1>
       <p class="desc">{{ repository.description }}</p>
@@ -41,6 +36,7 @@ export default {
   },
   async created() {
     await new Promise((resolve) => setTimeout(resolve, 1000));
+
     const response = await fetch(
       `https://api.github.com/repositories/${this.$route.params.id}`
     );
@@ -84,7 +80,7 @@ export default {
 
 .desc {
   font-size: 1.2rem;
-  text-align: center;
+  text-align: justify;
 }
 
 .rule {
@@ -98,5 +94,11 @@ export default {
   flex-direction: column;
   gap: 0.5rem;
   word-wrap: break-word;
+}
+
+@media (max-width: 768px) {
+  .repos-container {
+    margin-left: -1rem;
+  }
 }
 </style>
